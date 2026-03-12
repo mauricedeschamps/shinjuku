@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="theme-color" content="#121212">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="新宿12景">
+    <title>新宿12景 - ディープな新宿ガイド</title>
+    <!-- マニフェスト (動的生成) -->
+    <link rel="manifest" href="manifest.json">
+    <!-- iOS アイコン (SVGデータURI) 赤い鳥居とビルをイメージした幾何学模様 -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22180%22%20height%3D%22180%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22%23b1121c%22%2F%3E%3Cpath%20d%3D%22M20%2C70%20L50%2C20%20L80%2C70%20Z%22%20fill%3D%22%23ffd966%22%20opacity%3D%220.9%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2235%22%20r%3D%228%22%20fill%3D%22%23f4f4f4%22%2F%3E%3Crect%20x%3D%2235%22%20y%3D%2260%22%20width%3D%2230%22%20height%3D%2225%22%20fill%3D%22%23333%22%2F%3E%3Crect%20x%3D%2240%22%20y%3D%2265%22%20width%3D%225%22%20height%3D%2215%22%20fill%3D%22%23e0e0e0%22%2F%3E%3Crect%20x%3D%2250%22%20y%3D%2265%22%20width%3D%225%22%20height%3D%2215%22%20fill%3D%22%23e0e0e0%22%2F%3E%3C%2Fsvg%3E">
+    <style>
+        /* === リセット＆変数 === */
+        :root {
+            --primary: #d42e2e;
+            --primary-dark: #a00f0f;
+            --accent: #ffb347;
+            --dark-bg: #121212;
+            --dark-card: #1e1e1e;
+            --dark-text: #f0f0f0;
+            --light-bg: #faf6f0;
+            --light-card: #ffffff;
+            --light-text: #1a1a1a;
+            --shadow: 0 8px 24px rgba(0,0,0,0.2);
+            --transition: all 0.2s ease-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', 'Segoe UI', 'Hiragino Sans', '游ゴシック', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+            padding-top: 80px;
+            padding-bottom: 70px;
+            min-height: 100vh;
+            background-image: radial-gradient(circle at 30% 10%, #2a2a2a 0%, #0f0f0f 100%);
+            transition: background-color 0.3s, color 0.2s;
+        }
+
+        body.light-mode {
+            background-color: var(--light-bg);
+            color: var(--light-text);
+            background-image: radial-gradient(circle at 30% 10%, #fff3e0 0%, #f0e4d0 100%);
+        }
+
+        /* === ヘッダー === */
+        header {
+            background-color: rgba(18, 18, 18, 0.96);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: var(--shadow);
+            padding: 12px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        body.light-mode header {
+            background-color: rgba(255, 250, 240, 0.96);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            color: var(--primary);
+            text-shadow: 0 2px 2px rgba(0,0,0,0.3);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(145deg, var(--primary), #b71c1c);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 800;
+            box-shadow: 0 4px 6px rgba(190, 30, 30, 0.4);
+            transform: rotate(5deg);
+        }
+
+        .controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 36px;
+            background-color: #2c2c2c;
+            color: #ddd;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+            transition: var(--transition);
+        }
+
+        body.light-mode .btn {
+            background-color: #e4d9cd;
+            color: #2a1f1a;
+        }
+
+        .btn:hover {
+            transform: scale(1.04);
+            background-color: #3a3a3a;
+        }
+
+        .btn.active {
+            background: var(--primary);
+            color: white;
+            font-weight: 700;
+        }
+
+        .mode-icon {
+            font-size: 1.3rem;
+        }
+
+        /* === メインエリア === */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 16px 30px;
+        }
+
+        .main-title {
+            text-align: center;
+            margin: 5px 0 35px;
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .main-title::after {
+            content: '⚡';
+            font-size: 2rem;
+            margin-left: 12px;
+            background: none;
+            -webkit-text-fill-color: var(--primary);
+        }
+
+        .spot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .spot-card {
+            background-color: var(--dark-card);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 15px 25px -8px rgba(0,0,0,0.5);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(255, 85, 85, 0.2);
+            transition: transform 0.25s ease, box-shadow 0.3s;
+        }
+
+        body.light-mode .spot-card {
+            background-color: var(--light-card);
+            border: 1px solid #e0c8b0;
+        }
+
+        .spot-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 22px 30px -6px #a03f3f80;
+        }
+
+        .spot-image-container {
+            position: relative;
+            height: 190px;
+            overflow: hidden;
+        }
+
+        .spot-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .spot-card:hover .spot-image {
+            transform: scale(1.08);
+        }
+
+        .spot-info {
+            padding: 20px 18px 22px;
+            flex: 1;
+        }
+
+        .spot-name {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+
+        .spot-location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #b0b0b0;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--primary);
+            padding-left: 8px;
+        }
+
+        body.light-mode .spot-location {
+            color: #5f4e44;
+        }
+
+        .spot-description {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* 詳細ページ */
+        .detail-page {
+            display: none;
+            animation: fadeIn 0.4s;
+        }
+
+        .detail-header {
+            position: relative;
+            margin-bottom: 30px;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 20px 30px -5px #200000;
+        }
+
+        .detail-image {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .detail-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, #000000e0, transparent);
+            padding: 30px 25px 20px;
+        }
+
+        .detail-title {
+            color: white;
+            font-size: 2.3rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            text-shadow: 0 4px 8px black;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            background: rgba(20, 20, 20, 0.8);
+            backdrop-filter: blur(6px);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            border: 1px solid var(--primary);
+            transition: 0.2s;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+        }
+
+        .detail-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+        }
+
+        @media (max-width: 700px) {
+            .detail-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .detail-section {
+            background-color: var(--dark-card);
+            border-radius: 24px;
+            padding: 26px;
+            box-shadow: var(--shadow);
+            border: 1px solid #332211;
+        }
+
+        body.light-mode .detail-section {
+            background-color: #fef9f2;
+            border: 1px solid #dbb894;
+        }
+
+        .section-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--primary);
+            border-left: 8px solid var(--primary);
+            padding-left: 16px;
+        }
+
+        .official-link {
+            display: inline-block;
+            background: linear-gradient(130deg, var(--primary), #b72a2a);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            margin-top: 16px;
+            box-shadow: 0 10px 12px -5px #7f2020;
+            transition: 0.15s;
+        }
+
+        .official-link:hover {
+            background: var(--primary-dark);
+            transform: scale(1.02);
+        }
+
+        footer {
+            background-color: #0d0d0d;
+            padding: 26px 20px;
+            text-align: center;
+            color: #aaa;
+            border-top: 2px solid var(--primary);
+        }
+
+        body.light-mode footer {
+            background-color: #e4d5c4;
+            color: #3b2e26;
+        }
+
+        .contact-link {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1.15rem;
+        }
+
+        .lang-selector {
+            display: flex;
+            gap: 6px;
+            background: #2a2a2a;
+            padding: 5px;
+            border-radius: 40px;
+        }
+
+        body.light-mode .lang-selector {
+            background: #dacbbd;
+        }
+
+        .lang-btn {
+            padding: 6px 12px;
+            min-width: 52px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+        }
+
+        /* アニメーション */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ローダー */
+        .loader {
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            width: 44px;
+            height: 44px;
+            border: 5px solid rgba(212, 46, 46, 0.2);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s infinite;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0); } 100% { transform: rotate(360deg); } }
+
+        /* モバイル最適化 */
+        @media (max-width: 480px) {
+            .logo span { font-size: 1.1rem; }
+            .controls { gap: 5px; }
+            .btn { padding: 6px 12px; }
+            .detail-image { height: 260px; }
+            .detail-title { font-size: 1.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <div class="logo-icon">新</div>
+            <span class="app-name">新宿12景</span>
+        </div>
+        <div class="controls">
+            <div class="lang-selector">
+                <button class="btn lang-btn active" data-lang="ja">日本語</button>
+                <button class="btn lang-btn" data-lang="en">EN</button>
+                <button class="btn lang-btn" data-lang="zh">中文</button>
+            </div>
+            <button class="btn mode-toggle" id="modeToggle">
+                <span class="mode-icon">🌙</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1 class="main-title">新宿 奥深き12景</h1>
+        <div class="main-page" id="mainPage">
+            <div class="spot-grid" id="spotGrid"></div>
+        </div>
+        <div class="detail-page" id="detailPage"></div>
+    </div>
+
+    <footer>
+        <div>✉️ お問い合わせ</div>
+        <a href="mailto:mementomorikatsu@gmail.com" class="contact-link">mementomorikatsu@gmail.com</a>
+        <div style="margin-top: 18px; opacity: 0.7;">© 2025 新宿12景 - PWA</div>
+    </footer>
+
+    <script>
+        (function() {
+            // ---------- スポットデータ（新宿12選 日本語ベース）----------
+            const spots = [
+                {
+                    id: 1,
+                    name: { ja: "歌舞伎町一番町", en: "Kabukicho Ichibangai", zh: "歌舞伎町一番街" },
+                    description: { ja: "日本で最も有名な歓楽街。巨大なネオン看板が立ち並ぶ入り口は、誰もが一度は写真に収めたくなる象徴的なスポットです。昼間とは全く異なる顔を見せる夜の街並みは、独特のエネルギーに満ちています。", en: "Japan's most famous entertainment district. The entrance lined with giant neon signs is an iconic spot that everyone wants to photograph. The nightscape shows a completely different face from daytime, filled with unique energy.", zh: "日本最有名的欢乐街。巨大的霓虹招牌林立的入口，是每个人都想拍照留念的标志性景点。夜晚的街道与白天截然不同，充满独特的能量。" },
+                    location: { ja: "東京都新宿区歌舞伎町", en: "Kabukicho, Shinjuku", zh: "东京都新宿区歌舞伎町" },
+                    access: { ja: "JR新宿駅東口から徒歩7分", en: "7 min walk from JR Shinjuku Station East Exit", zh: "从JR新宿站东口步行7分钟" },
+                    nearby: { ja: "新宿東宝ビル、ゴジラヘッド", en: "Shinjuku Toho Bldg, Godzilla Head", zh: "新宿东宝大楼、哥斯拉头" },
+                    official: "https://www.kabukicho.or.jp/",
+                    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Kabukicho_ichibangai_2019.jpg/1024px-Kabukicho_ichibangai_2019.jpg"
+                },
+                {
+                    id: 2,
+                    name: { ja: "思い出横丁", en: "Omoide Yokocho", zh: "回忆横丁" },
+                    description: { ja: "新宿西口、JR線のガード下に広がるレトロな雰囲気の飲食店街。焼き鳥やもつ焼きの香ばしい煙が立ち込め、軒を連ねる大衆酒場はどこも活気にあふれています。", en: "A retro alley under the JR tracks at West Exit. Fragrant smoke from yakitori and grilled offal fills the air, with lively taverns lining the narrow lanes.", zh: "位于新宿西口JR线高架桥下的复古风情餐饮街。烤鸡串和烤内脏的香气弥漫，林立的平民酒馆充满活力。" },
+                    location: { ja: "新宿区西新宿1丁目", en: "1-chome Nishi-Shinjuku", zh: "新宿区西新宿1丁目" },
+                    access: { ja: "JR新宿駅西口から徒歩3分", en: "3 min walk from JR Shinjuku West Exit", zh: "从JR新宿站西口步行3分钟" },
+                    nearby: { ja: "新宿野村ビル", en: "Shinjuku Nomura Bldg", zh: "新宿野村大厦" },
+                    official: "https://shinjuku-omoide.com/",
+                    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/3a/bb/b6/omoide-yokocho.jpg"
+                },
+                {
+                    id: 3,
+                    name: { ja: "新宿ゴールデン街", en: "Shinjuku Golden Gai", zh: "新宿黄金街" },
+                    description: { ja: "約300軒もの小さなバーが迷路のようにひしめき合う独特の街。薄明かりのネオンと昭和の面影を残す建物が立ち並び、タイムスリップしたかのような感覚を味わえます。", en: "A unique area with around 300 tiny bars clustered like a maze. Dim neon lights and Showa-era buildings make you feel like you've traveled back in time.", zh: "大约300家小酒吧迷宫般密集的独特街区。微暗的霓虹灯和保留昭和风貌的建筑林立，让人仿佛穿越时空。" },
+                    location: { ja: "新宿区歌舞伎町1丁目", en: "1-chome Kabukicho", zh: "新宿区歌舞伎町1丁目" },
+                    access: { ja: "東京メトロ東新宿駅から徒歩5分", en: "5 min walk from Higashi-Shinjuku Station", zh: "从地铁东新宿站步行5分钟" },
+                    nearby: { ja: "花園神社", en: "Hanazono Shrine", zh: "花园神社" },
+                    official: "http://goldengai.jp/",
+                    image: "https://jw-webmagazine.com/wp-content/uploads/2020/04/GoldenGai.jpg"
+                },
+                {
+                    id: 4,
+                    name: { ja: "東急歌舞伎町タワー", en: "Tokyu Kabukicho Tower", zh: "东急歌舞伎町塔" },
+                    description: { ja: "2023年に誕生したエンタメの新ランドマーク。劇場や映画館、ライブホールの他、ホテルや飲食店も入る高層複合ビルです。昼夜問わず賑わっています。", en: "A new entertainment landmark opened in 2023. High-rise complex with theaters, live halls, hotels, and restaurants. Bustling day and night.", zh: "202年诞生的娱乐新地标。高层综合大楼内设有剧场、电影院、Live House、酒店及餐饮店。无论昼夜都热闹非凡。" },
+                    location: { ja: "新宿区歌舞伎町1丁目", en: "1-chome Kabukicho", zh: "新宿区歌舞伎町1丁目" },
+                    access: { ja: "JR新宿駅東口から徒歩8分", en: "8 min walk from JR Shinjuku East", zh: "从JR新宿站东口步行8分钟" },
+                    nearby: { ja: "新宿TOKYU MILANO", en: "Tokyu Milano", zh: "东急米兰" },
+                    official: "https://www.tokyu-kabukicho-tower.jp/",
+                    image: "https://www.tokyu-kabukicho-tower.jp/assets/images/ogp.jpg"
+                },
+                {
+                    id: 5,
+                    name: { ja: "新宿東口の3D三毛猫", en: "3D Calico Cat", zh: "新宿东口3D三花猫" },
+                    description: { ja: "新宿駅東口の「クロス新宿ビジョン」に現れる巨大な3D立体映像の三毛猫。まるでビルから顔を出しているかのようなリアルな動きで人々を楽しませています。", en: "A gigantic 3D calico cat appears on the Cross Shinjuku Vision at East Exit. Realistic movements as if peeking out from the building delight passersby.", zh: "出现在新宿站东口"クロス新宿ビジョン"的巨大3D立体三花猫。仿佛从大楼探出头来的逼真动作给人们带来欢乐。" },
+                    location: { ja: "新宿区新宿3丁目", en: "3-chome Shinjuku", zh: "新宿区新宿3丁目" },
+                    access: { ja: "JR新宿駅東口直結", en: "Directly at JR Shinjuku East Exit", zh: "JR新宿站东口直达" },
+                    nearby: { ja: "新宿アルタ", en: "Shinjuku Alta", zh: "新宿Alta" },
+                    official: "https://www.cross-s.shinjuku/",
+                    image: "https://www.cross-s.shinjuku/assets/images/vision/cat.jpg"
+                },
+                {
+                    id: 6,
+                    name: { ja: "新宿二丁目", en: "Shinjuku Nichome", zh: "新宿二丁目" },
+                    description: { ja: "日本最大級のゲイタウン。多様なバーやクラブが密集し、近年は誰もが楽しめる多様性を受け入れる街として観光客も増えています。", en: "One of Japan's largest gay districts. Diverse bars and clubs; recently more tourists visit as an inclusive town.", zh: "日本最大的同性恋社区之一。多样的酒吧和俱乐部密集，近年来作为接受多样性的街区游客也在增加。" },
+                    location: { ja: "新宿区新宿2丁目", en: "2-chome Shinjuku", zh: "新宿区新宿2丁目" },
+                    access: { ja: "東京メトロ新宿三丁目駅から徒歩4分", en: "4 min walk from Shinjuku-sanchome Station", zh: "从地铁新宿三丁目站步行4分钟" },
+                    nearby: { ja: "伊勢丹新宿店", en: "Isetan Shinjuku", zh: "伊势丹新宿店" },
+                    official: "https://www.ni-chome.or.jp/",
+                    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Shinjuku_Ni-chome_2020.jpg/1024px-Shinjuku_Ni-chome_2020.jpg"
+                },
+                {
+                    id: 7,
+                    name: { ja: "東京都庁展望室", en: "Tokyo Metro Gov't Observatory", zh: "东京都厅展望室" },
+                    description: { ja: "地上202mの無料展望台。晴れた日には富士山も望める360度パノラマ。夜景は特にロマンチックでデートにもおすすめです。", en: "Free observatory at 202m above ground. 360-degree panorama with Mt. Fuji on clear days. Romantic night view.", zh: "地面202米高的免费展望台。晴天时可眺望富士山，360度全景。夜景尤其浪漫，也适合约会。" },
+                    location: { ja: "新宿区西新宿2丁目", en: "2-chome Nishi-Shinjuku", zh: "新宿区西新宿2丁目" },
+                    access: { ja: "都庁前駅直結", en: "Directly at Tochomae Station", zh: "都厅前站直达" },
+                    nearby: { ja: "新宿中央公園", en: "Shinjuku Central Park", zh: "新宿中央公园" },
+                    official: "https://www.yokoso.metro.tokyo.lg.jp/",
+                    image: "https://www.gotokyo.org/jp/spot/28/img/28_0010_0010_500x334.jpg"
+                },
+                {
+                    id: 8,
+                    name: { ja: "新大久保コリアンタウン", en: "Shin-Okubo Koreatown", zh: "新大久保韩国城" },
+                    description: { ja: "日本最大級の韓国系エスニックタウン。韓国料理店やコスメショップ、K-POPグッズ店が軒を連ね、まるで韓国に来たような雰囲気。", en: "One of Japan's largest Korean towns. Lined with Korean restaurants, cosmetics shops, and K-POP goods stores.", zh: "日本最大的韩国城之一。韩国料理店、化妆品店、K-POP周边店鳞次栉比，仿佛置身韩国。" },
+                    location: { ja: "新宿区大久保", en: "Okubo, Shinjuku", zh: "新宿区大久保" },
+                    access: { ja: "JR新大久保駅から徒歩1分", en: "1 min walk from JR Shin-Okubo Station", zh: "从JR新大久保站步行1分钟" },
+                    nearby: { ja: "大久保通り", en: "Okubo-dori", zh: "大久保通" },
+                    official: "https://shin-okubo.org/",
+                    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Okubo_dori_Shinjuku_2021.jpg/1024px-Okubo_dori_Shinjuku_2021.jpg"
+                },
+                {
+                    id: 9,
+                    name: { ja: "大久保公園", en: "Okubo Park", zh: "大久保公园" },
+                    description: { ja: "歌舞伎町の一角にある公園。昼は憩いの場、夜は若者が集まる社交の場として注目を集めています。", en: "A park in Kabukicho. A relaxing spot by day and a social hub for young people by night, gaining attention via social media.", zh: "位于歌舞伎町一角的公园。白天是休息场所，夜晚作为年轻人聚集的社交场所而受到关注。" },
+                    location: { ja: "新宿区歌舞伎町", en: "Kabukicho", zh: "新宿区歌舞伎町" },
+                    access: { ja: "西武新宿駅から徒歩3分", en: "3 min walk from Seibu-Shinjuku Station", zh: "从西武新宿站步行3分钟" },
+                    nearby: { ja: "新宿コマ劇場跡", en: "Former Koma Theater", zh: "新宿Koma剧场旧址" },
+                    official: "https://www.city.shinjuku.lg.jp/",
+                    image: "https://trial.wadainoyama.com/wp-content/uploads/2022/09/okubo-park.jpg"
+                },
+                {
+                    id: 10,
+                    name: { ja: "新宿御苑", en: "Shinjuku Gyoen", zh: "新宿御苑" },
+                    description: { ja: "都会の喧騒を忘れさせる広大な緑。フランス式・イギリス式・日本庭園が融合した美しい公園。四季折々の花々が楽しめます。", en: "Vast greenery that makes you forget city bustle. A beautiful park blending French, English, and Japanese gardens. Seasonal flowers.", zh: "让人忘却都市喧嚣的广阔绿洲。融合了法式、英式和日本庭园的美丽公园。四季鲜花绽放。" },
+                    location: { ja: "新宿区内藤町", en: "Naito-machi", zh: "新宿区内藤町" },
+                    access: { ja: "新宿門から徒歩5分", en: "5 min walk from Shinjuku Gate", zh: "从新宿门步行5分钟" },
+                    nearby: { ja: "国立競技場", en: "National Stadium", zh: "国立竞技场" },
+                    official: "https://fng.or.jp/shinjuku/",
+                    image: "https://www.japan-guide.com/g18/3034_01.jpg"
+                },
+                {
+                    id: 11,
+                    name: { ja: "新宿サザンテラス＆新都心歩道橋", en: "Shinjuku Southern Terrace", zh: "新宿Southern Terrace & 新都心步道桥" },
+                    description: { ja: "新宿駅南口直結の開放的な遊歩道。おしゃれなカフェが並び、冬は美しいイルミネーション。歩道橋は高層ビル群のフォトスポット。", en: "Open promenade directly connected to the south exit. Stylish cafes, beautiful winter illuminations. The pedestrian bridge is a photospot for skyscrapers.", zh: "与新宿站南口直连的开放步道。时尚咖啡馆林立，冬季有美丽的灯饰。步道桥是拍摄高层建筑群的打卡点。" },
+                    location: { ja: "渋谷区代々木", en: "Yoyogi, Shibuya", zh: "涩谷区代代木" },
+                    access: { ja: "JR新宿駅南口直結", en: "Direct from JR Shinjuku South Exit", zh: "JR新宿站南口直达" },
+                    nearby: { ja: "タカシマヤタイムズスクエア", en: "Takashimaya Times Square", zh: "高岛屋时代广场" },
+                    official: "https://www.shinjuku-southernt terrace.jp/",
+                    image: "https://tokyo-trip.org/img/spot/ki_0034.jpg"
+                },
+                {
+                    id: 12,
+                    name: { ja: "新宿中央公園＆ナイアガラ瀑布", en: "Shinjuku Central Park & Niagara Falls", zh: "新宿中央公园＆尼亚加拉瀑布" },
+                    description: { ja: "高層ビル群のオアシス。園内の「ナイアガラの滝」は都会でひときわ存在感を放ちます。ランニングコースも整備。", en: "An oasis among skyscrapers. The 'Niagara Falls' in the park stands out. Jogging courses available.", zh: "高层建筑群的绿洲。园内的"尼亚加拉瀑布"在都市中格外引人注目。设有跑步路线。" },
+                    location: { ja: "新宿区西新宿2丁目", en: "2-chome Nishi-Shinjuku", zh: "新宿区西新宿2丁目" },
+                    access: { ja: "都庁前駅から徒歩3分", en: "3 min walk from Tochomae Station", zh: "从都厅前站步行3分钟" },
+                    nearby: { ja: "東京都庁", en: "Tokyo Metro Gov't", zh: "东京都厅" },
+                    official: "https://www.city.shinjuku.lg.jp/kanko/",
+                    image: "https://www.gotokyo.org/jp/spot/28/img/28_0010_0009_500x334.jpg"
+                }
+            ];
+
+            // 画像が万一404にならないよう、デフォルト画像を紛れ込ませる処理はここでは省く(実在想定)
+
+            let currentLang = 'ja';
+            let darkMode = true;
+            let currentSpotId = null;
+
+            const mainPage = document.getElementById('mainPage');
+            const detailPage = document.getElementById('detailPage');
+            const spotGrid = document.getElementById('spotGrid');
+            const appName = document.querySelector('.app-name');
+            const mainTitle = document.querySelector('.main-title');
+            const modeToggle = document.getElementById('modeToggle');
+            const modeIcon = document.querySelector('.mode-icon');
+
+            // ストレージ読込
+            function loadSettings() {
+                const savedLang = localStorage.getItem('lang');
+                if (savedLang && ['ja','en','zh'].includes(savedLang)) currentLang = savedLang;
+                else currentLang = 'ja'; // デフォルト日本語
+
+                const savedMode = localStorage.getItem('darkMode');
+                if (savedMode !== null) darkMode = (savedMode === 'true');
+                else darkMode = true;
+
+                updateLangButtons();
+                updateMode();
+            }
+
+            function updateLangButtons() {
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.lang === currentLang) btn.classList.add('active');
+                });
+                updateTexts();
+            }
+
+            function updateTexts() {
+                appName.textContent = currentLang === 'ja' ? '新宿12景' : currentLang === 'en' ? 'Shinjuku 12 Scenes' : '新宿12景';
+                mainTitle.textContent = currentLang === 'ja' ? '新宿 奥深き12景' : currentLang === 'en' ? 'Shinjuku: 12 Hidden Gems' : '新宿 深度12景';
+                renderSpots();
+                if (currentSpotId) renderSpotDetail(currentSpotId);
+            }
+
+            function updateMode() {
+                if (darkMode) {
+                    document.body.classList.remove('light-mode');
+                    modeIcon.textContent = '🌙';
+                } else {
+                    document.body.classList.add('light-mode');
+                    modeIcon.textContent = '☀️';
+                }
+                localStorage.setItem('darkMode', darkMode);
+            }
+
+            // カード一覧描画
+            function renderSpots() {
+                spotGrid.innerHTML = '';
+                spots.forEach(spot => {
+                    const card = document.createElement('div');
+                    card.className = 'spot-card';
+                    card.dataset.id = spot.id;
+                    // 画像読み込み失敗対策にonerror設定
+                    card.innerHTML = `
+                        <div class="spot-image-container">
+                            <img src="${spot.image}" alt="${spot.name.ja}" class="spot-image" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22300%22%20height%3D%22200%22%20viewBox%3D%220%200%20300%20200%22%3E%3Crect%20width%3D%22300%22%20height%3D%22200%22%20fill%3D%22%23333%22%2F%3E%3Ctext%20x%3D%2220%22%20y%3D%22120%22%20fill%3D%22%23d42e2e%22%20font-size%3D%2224%22%3E新宿%3C%2Ftext%3E%3C%2Fsvg%3E'">
+                        </div>
+                        <div class="spot-info">
+                            <h2 class="spot-name">${spot.name[currentLang]}</h2>
+                            <div class="spot-location">📍 ${spot.location[currentLang]}</div>
+                            <p class="spot-description">${spot.description[currentLang]}</p>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => showSpotDetail(spot.id));
+                    spotGrid.appendChild(card);
+                });
+            }
+
+            function showSpotDetail(id) {
+                currentSpotId = id;
+                mainPage.style.display = 'none';
+                detailPage.style.display = 'block';
+                renderSpotDetail(id);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            function renderSpotDetail(id) {
+                const spot = spots.find(s => s.id === id);
+                if (!spot) return;
+                const backText = currentLang === 'ja' ? '← 一覧に戻る' : currentLang === 'en' ? '← Back' : '← 返回';
+                const officialBtnText = currentLang === 'ja' ? '公式サイトへ' : currentLang === 'en' ? 'Official Site' : '官方网站';
+                detailPage.innerHTML = `
+                    <div class="detail-header">
+                        <img src="${spot.image}" alt="${spot.name.ja}" class="detail-image" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22400%22%20viewBox%3D%220%200%20800%20400%22%3E%3Crect%20fill%3D%22%23333%22%20width%3D%22800%22%20height%3D%22400%22%2F%3E%3Ctext%20x%3D%22200%22%20y%3D%22200%22%20fill%3D%22%23d42e2e%22%20font-size%3D%2248%22%3E新宿%20%3C%2Ftext%3E%3C%2Fsvg%3E'">
+                        <div class="detail-overlay">
+                            <h2 class="detail-title">${spot.name[currentLang]}</h2>
+                            <div class="spot-location" style="color:#ccc;">📍 ${spot.location[currentLang]}</div>
+                        </div>
+                        <button class="back-btn" id="backBtn">${backText}</button>
+                    </div>
+                    <div class="detail-content">
+                        <div class="detail-section">
+                            <h3 class="section-title">${currentLang==='ja'?'概要':currentLang==='en'?'Description':'简介'}</h3>
+                            <p>${spot.description[currentLang]}</p>
+                        </div>
+                        <div class="detail-section">
+                            <h3 class="section-title">${currentLang==='ja'?'アクセス':currentLang==='en'?'Access':'交通'}</h3>
+                            <p>${spot.access[currentLang]}</p>
+                        </div>
+                        <div class="detail-section">
+                            <h3 class="section-title">${currentLang==='ja'?'周辺情報':currentLang==='en'?'Nearby':'周边'}</h3>
+                            <p>${spot.nearby[currentLang]}</p>
+                        </div>
+                        <div class="detail-section">
+                            <h3 class="section-title">${currentLang==='ja'?'公式情報':currentLang==='en'?'Official':'官网'}</h3>
+                            <a href="${spot.official}" target="_blank" class="official-link">${officialBtnText}</a>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('backBtn').addEventListener('click', () => {
+                    detailPage.style.display = 'none';
+                    mainPage.style.display = 'block';
+                    currentSpotId = null;
+                });
+            }
+
+            // イベント
+            function setupEvents() {
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.addEventListener('click', e => {
+                        currentLang = e.target.dataset.lang;
+                        localStorage.setItem('lang', currentLang);
+                        updateLangButtons();
+                    });
+                });
+                modeToggle.addEventListener('click', () => {
+                    darkMode = !darkMode;
+                    updateMode();
+                });
+            }
+
+            // 起動
+            document.addEventListener('DOMContentLoaded', () => {
+                loadSettings();
+                renderSpots();
+                setupEvents();
+
+                // マニフェストとServiceWorkerを動的にリンク(ファイル生成は同ディレクトリ前提)
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.register('sw.js').catch(e => console.log('SW登録失敗', e));
+                }
+            });
+        })();
+    </script>
+
+    <!-- マニフェストファイル（実際は別ファイルだが、HTML内で生成されたmanifest.jsonを参照する形） -->
+    <!-- このHTMLと同一ディレクトリに以下の内容でmanifest.jsonを配置してください 
+         (以下コメントは実際のmanifest.json内容) 
+    -->
+    <!--
+        manifest.json
+        {
+          "name": "新宿12景",
+          "short_name": "新宿12景",
+          "start_url": "index.html",
+          "display": "standalone",
+          "background_color": "#121212",
+          "theme_color": "#d42e2e",
+          "icons": [{
+            "src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22192%22%20height%3D%22192%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22%23b1121c%22%2F%3E%3Cpath%20d%3D%22M20%2C70%20L50%2C20%20L80%2C70%20Z%22%20fill%3D%22%23ffd966%22%20opacity%3D%220.9%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2235%22%20r%3D%228%22%20fill%3D%22%23f4f4f4%22%2F%3E%3Crect%20x%3D%2235%22%20y%3D%2260%22%20width%3D%2230%22%20height%3D%2225%22%20fill%3D%22%23333%22%2F%3E%3Crect%20x%3D%2240%22%20y%3D%2265%22%20width%3D%225%22%20height%3D%2215%22%20fill%3D%22%23e0e0e0%22%2F%3E%3Crect%20x%3D%2250%22%20y%3D%2265%22%20width%3D%225%22%20height%3D%2215%22%20fill%3D%22%23e0e0e0%22%2F%3E%3C%2Fsvg%3E",
+            "sizes": "192x192",
+            "type": "image/svg+xml"
+          }]
+        }
+    -->
+    <!--
+        sw.js 最小構成：
+        self.addEventListener('install', e => self.skipWaiting());
+        self.addEventListener('activate', e => e.waitUntil(clients.claim()));
+        self.addEventListener('fetch', e => e.respondWith(fetch(e.request).catch(() => caches.match(e.request))));
+    -->
+</body>
+</html>

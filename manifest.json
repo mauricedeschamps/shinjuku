@@ -1,0 +1,124 @@
+{
+  "name": "新宿12景 - ディープな新宿ガイド",
+  "short_name": "新宿12景",
+  "description": "新宿の多様な魅力を楽しむ12のスポットを紹介するPWAガイド",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#d42e2e",
+  "orientation": "portrait",
+  "scope": "./",
+  "lang": "ja",
+  "dir": "ltr",
+  "categories": ["travel", "lifestyle", "entertainment"],
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2248%22%20height%3D%2248%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22%23b1121c%22%2F%3E%3Cpath%20d%3D%22M20%2C70%20L50%2C20%20L80%2C70%20Z%22%20fill%3D%22%23ffd966%22%20opacity%3D%220.9%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2235%22%20r%3D%228%22%20fill%3D%22%23f4f4f4%22%2F%3E%3Crect%20x%3D%2235%22%20y%3D%2260%22%20width%3D%2230%22%20height%3D%2225%22%20fill%3D%22%23333%22%2F%3E%3Crect%20x%3D%2240%22%20y%3D%2265%22%20width%3D%225%22%20height%3D%2215%22%20fill%3D%22%23e0e0e0%22%2F%3E%3Crect%20x%3D%2250%22%20y%3D%2265%22%20width%3D%225%22%20height%3D%2215%22%20fill%3D%22%23e0e0e0%22%2F%3E%3C%2Fsvg%3E",
+      "sizes": "48x48",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2272%22%20height%3D%2272%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22%23b1121c%22%2F%3E%3Cpath%20d%3D%22M20%2C70%20L50%2C20%20L80%2C70%20Z%22%20fill%3D%22%23ffd966%22%20opacity%3D%220.9%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2235%22%20r%3D%228%22%20fill%3D%22%23f4f4f4%22%2F%3E%3Crect%20x%3D%2235%22%20y%3D%2260%22%20width%3D%2230%22%20height%3D%2225%22%20fill%3D%22%23333%22%2F%3E%3Crect%20x%3D%2240%22%20y%3D%2265%22%20width%3D%225%22%20height%3D%2215%22%20fill%3D%22%23e0e0e0%22%2F%3E%3Crect%20x%3D%2250%22%20y%3D%2265%22%20width%3D%225%22%20height%3D%2215%22%20fill%3D%22%23e0e0e0%22%2F%3E%3C%2Fsvg%3E",
+      "sizes": "72x72",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2296%22%20height%3D%2296%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22%23b1121c%22%2F%3E%3Cpath%20d%3D%22M20%2C70%20L50%2C20%20L80%2C70%20Z%22%20fill%3D%22%23ffd966%22%20opacity%3D%220.9%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2235%22%20r%3D%228%22%20fill%3D%22%23f4f4f4%22%2F%3E%3Crect%20x%3D%2235%22%20y%3D%2260%22%20width%3D%2230%22%20height%3D%2225%22%20fill%3D%22%23333%22%2F%3E%3Crect%20x%3D%2240%22%20y%3D%2265%22%20width%3D%225%22%20height%3D%2215%22%20fill%3D%22%23e0e0e0%22%2F%3E%3Crect%20x%3D%2250%22%20y%3D%2265%22%20width%3D%225%22%20height%3D%2215%22%20fill%3D%22%23e0e0e0%22%2F%3E%3C%2Fsvg%3E",
+      "sizes": "96x96",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22128%22%20height%3D%22128%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22%23b1121c%22%2F%3E%3Cpath%20d%3D%22M20%2C70%20L50%2C20%20L80%2C70%20Z%22%20fill%3D%22%23ffd966%22%20opacity%3D%220.9%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2235%22%20r%3D%228%22%20fill%3D%22%23f4f4f4%22%2F%3E%3Crect%20x%3D%2235%22%20y%3D%2260%22%20width%3D%2230%22%20height%3D%2225%22%20fill%3D%22%23333%22%2F%3E%3Crect%20x%3D%2240%22%20y%3D%2265%22%20width%3D%225%22%20height%3D%2215%22%20fill%3D%22%23e0e0e0%22%2F%3E%3Crect%20x%3D%2250%22%20y%3D%2265%22%20width%3D%225%22%20height%3D%2215%22%20fill%3D%22%23e0e0e0%22%2F%3E%3C%2Fsvg%3E",
+      "sizes": "128x128",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22144%22%20height%3D%22144%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22%23b1121c%22%2F%3E%3Cpath%20d%3D%22M20%2C70%20L50%2C20%20L80%2C70%20Z%22%20fill%3D%22%23ffd966%22%20opacity%3D%220.9%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2235%22%20r%3D%228%22%20fill%3D%22%23f4f4f4%22%2F%3E%3Crect%20x%3D%2235%22%20y%3D%2260%22%20width%3D%2230%22%20height%3D%2225%22%20fill%3D%22%23333%22%2F%3E%3Crect%20x%3D%2240%22%20y%3D%2265%22%20width%3D%225%22%20height%3D%2215%22%20fill%3D%22%23e0e0e0%22%2F%3E%3Crect%20x%3D%2250%22%20y%3D%2265%22%20width%3D%225%22%20height%3D%2215%22%20fill%3D%22%23e0e0e0%22%2F%3E%3C%2Fsvg%3E",
+      "sizes": "144x144",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22152%22%20height%3D%22152%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22%23b1121c%22%2F%3E%3Cpath%20d%3D%22M20%2C70%20L50%2C20%20L80%2C70%20Z%22%20fill%3D%22%23ffd966%22%20opacity%3D%220.9%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2235%22%20r%3D%228%22%20fill%3D%22%23f4f4f4%22%2F%3E%3Crect%20x%3D%2235%22%20y%3D%2260%22%20width%3D%2230%22%20height%3D%2225%22%20fill%3D%22%23333%22%2F%3E%3Crect%20x%3D%2240%22%20y%3D%2265%22%20width%3D%225%22%20height%3D%2215%22%20fill%3D%22%23e0e0e0%22%2F%3E%3Crect%20x%3D%2250%22%20y%3D%2265%22%20width%3D%225%22%20height%3D%2215%22%20fill%3D%22%23e0e0e0%22%2F%3E%3C%2Fsvg%3E",
+      "sizes": "152x152",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22192%22%20height%3D%22192%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22%23b1121c%22%2F%3E%3Cpath%20d%3D%22M20%2C70%20L50%2C20%20L80%2C70%20Z%22%20fill%3D%22%23ffd966%22%20opacity%3D%220.9%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2235%22%20r%3D%228%22%20fill%3D%22%23f4f4f4%22%2F%3E%3Crect%20x%3D%2235%22%20y%3D%2260%22%20width%3D%2230%22%20height%3D%2225%22%20fill%3D%22%23333%22%2F%3E%3Crect%20x%3D%2240%22%20y%3D%2265%22%20width%3D%225%22%20height%3D%2215%22%20fill%3D%22%23e0e0e0%22%2F%3E%3Crect%20x%3D%2250%22%20y%3D%2265%22%20width%3D%225%22%20height%3D%2215%22%20fill%3D%22%23e0e0e0%22%2F%3E%3C%2Fsvg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22256%22%20height%3D%22256%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22%23b1121c%22%2F%3E%3Cpath%20d%3D%22M20%2C70%20L50%2C20%20L80%2C70%20Z%22%20fill%3D%22%23ffd966%22%20opacity%3D%220.9%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2235%22%20r%3D%228%22%20fill%3D%22%23f4f4f4%22%2F%3E%3Crect%20x%3D%2235%22%20y%3D%2260%22%20width%3D%2230%22%20height%3D%2225%22%20fill%3D%22%23333%22%2F%3E%3Crect%20x%3D%2240%22%20y%3D%2265%22%20width%3D%225%22%20height%3D%2215%22%20fill%3D%22%23e0e0e0%22%2F%3E%3Crect%20x%3D%2250%22%20y%3D%2265%22%20width%3D%225%22%20height%3D%2215%22%20fill%3D%22%23e0e0e0%22%2F%3E%3C%2Fsvg%3E",
+      "sizes": "256x256",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22512%22%20height%3D%22512%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22%23b1121c%22%2F%3E%3Cpath%20d%3D%22M20%2C70%20L50%2C20%20L80%2C70%20Z%22%20fill%3D%22%23ffd966%22%20opacity%3D%220.9%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2235%22%20r%3D%228%22%20fill%3D%22%23f4f4f4%22%2F%3E%3Crect%20x%3D%2235%22%20y%3D%2260%22%20width%3D%2230%22%20height%3D%2225%22%20fill%3D%22%23333%22%2F%3E%3Crect%20x%3D%2240%22%20y%3D%2265%22%20width%3D%225%22%20height%3D%2215%22%20fill%3D%22%23e0e0e0%22%2F%3E%3Crect%20x%3D%2250%22%20y%3D%2265%22%20width%3D%225%22%20height%3D%2215%22%20fill%3D%22%23e0e0e0%22%2F%3E%3C%2Fsvg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221080%22%20height%3D%221920%22%20viewBox%3D%220%200%201080%201920%22%3E%3Crect%20width%3D%221080%22%20height%3D%221920%22%20fill%3D%22%23121212%22%2F%3E%3Ctext%20x%3D%22100%22%20y%3D%22300%22%20fill%3D%22%23d42e2e%22%20font-size%3D%2272%22%3E新宿12景%3C%2Ftext%3E%3C%2Fsvg%3E",
+      "sizes": "1080x1920",
+      "type": "image/svg+xml",
+      "platform": "narrow",
+      "label": "ホーム画面"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221920%22%20height%3D%221080%22%20viewBox%3D%220%200%201920%201080%22%3E%3Crect%20width%3D%221920%22%20height%3D%221080%22%20fill%3D%22%23121212%22%2F%3E%3Ctext%20x%3D%22200%22%20y%3D%22300%22%20fill%3D%22%23d42e2e%22%20font-size%3D%2272%22%3E新宿12景%3C%2Ftext%3E%3C%2Fsvg%3E",
+      "sizes": "1920x1080",
+      "type": "image/svg+xml",
+      "platform": "wide",
+      "label": "デスクトップ表示"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "歌舞伎町一番町",
+      "short_name": "歌舞伎町",
+      "description": "日本最大級の歓楽街",
+      "url": "index.html?id=1",
+      "icons": [{
+        "src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2296%22%20height%3D%2296%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22%23b1121c%22%2F%3E%3Ctext%20x%3D%2220%22%20y%3D%2260%22%20fill%3D%22%23fff%22%20font-size%3D%2260%22%3E1%3C%2Ftext%3E%3C%2Fsvg%3E",
+        "sizes": "96x96",
+        "type": "image/svg+xml"
+      }]
+    },
+    {
+      "name": "思い出横丁",
+      "short_name": "思い出横丁",
+      "description": "レトロな飲食店街",
+      "url": "index.html?id=2",
+      "icons": [{
+        "src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2296%22%20height%3D%2296%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22%23b1121c%22%2F%3E%3Ctext%20x%3D%2220%22%20y%3D%2260%22%20fill%3D%22%23fff%22%20font-size%3D%2260%22%3E2%3C%2Ftext%3E%3C%2Fsvg%3E",
+        "sizes": "96x96",
+        "type": "image/svg+xml"
+      }]
+    },
+    {
+      "name": "新宿ゴールデン街",
+      "short_name": "ゴールデン街",
+      "description": "約300軒の小さなバー",
+      "url": "index.html?id=3",
+      "icons": [{
+        "src": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2296%22%20height%3D%2296%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22%23b1121c%22%2F%3E%3Ctext%20x%3D%2220%22%20y%3D%2260%22%20fill%3D%22%23fff%22%20font-size%3D%2260%22%3E3%3C%2Ftext%3E%3C%2Fsvg%3E",
+        "sizes": "96x96",
+        "type": "image/svg+xml"
+      }]
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "iarc_rating_id": "e8d4f6a0-5b3a-4a7c-9b1c-2d3e4f5a6b7c"
+}
